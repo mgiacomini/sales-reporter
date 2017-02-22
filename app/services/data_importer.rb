@@ -21,10 +21,10 @@ module Services
       Order.create(params)
     end
 
-    def update_orders(orders, wordpress_id)
+    def update_orders(orders, wordpress)
       orders.each do |order_json|
         p "--> Atualizando pedido: #{order_json['number']}"
-        save_order(create_order_params(order_json.merge(wordpress_id: wordpress_id)))
+        save_order(create_order_params(order_json.merge(wordpress: wordpress)))
       end
     end
 
