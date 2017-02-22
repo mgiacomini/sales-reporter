@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :users
     resources :wordpresses
     resources :orders do
-      collection { get :update_reports }
+      collection { get :update_orders }
     end
     root to: 'users#index'
   end

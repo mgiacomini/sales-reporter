@@ -33,17 +33,13 @@ It renders the `_table` partial to display details about the resources.
   <h1 class="header__heading" id="page-title"><%= content_for(:title) %></h1>
   <div class="header__actions">
     <%= link_to(
-      "Update Reports",
-      [:update_reports, namespace, page.resource_name.pluralize],
+      "Update Orders",
+      [:update_orders, namespace, page.resource_name.pluralize],
       class: "button",
     ) %>
   </div>
 </header>
 
-<h2>General sales report</h2>
-<%= line_chart @general_report %>
+<%= render "collection", collection_presenter: page, resources: resources %>
 
-<% @wordpresses.each do |w| %>
-    <h2><%= w.name %> sales report</h2>
-    <%= line_chart w.reports.group_by_day(:created_at).sum(:sales) %>
-<% end %>
+<%= paginate resources %>

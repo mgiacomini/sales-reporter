@@ -6,11 +6,11 @@ module Services
         self.woocommerce = wordpress.woocommerce
       end
 
-      def all_orders(amount = 200, page = 1, order = 'asc', status = 'processing')
+      def all_orders(amount = 200, page = 1, status = 'processing')
         all_orders = []
 
         while true
-          response = woocommerce.get("orders?page=#{page}&per_page=100&order=#{order}&status=#{status}").parsed_response
+          response = woocommerce.get("orders?page=#{page}&per_page=100&status=#{status}").parsed_response
           break if response.none?
           all_orders.concat(response)
           break if all_orders.count >= amount
