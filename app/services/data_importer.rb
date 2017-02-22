@@ -15,10 +15,12 @@ module Services
 
     ## Update or Create a Order
     def save_order(params={})
-      order = Order.find_by_number! params['number']
-      order.update_attributes params
-    rescue ActiveRecord::RecordNotFound
-      Order.create(params)
+      order = Order.find_by_number params['number']
+      if order.instance_of? Order
+        order.update_attributes params
+      else
+        Order.create(params)
+      end
     end
 
     def update_orders(orders, wordpress)
