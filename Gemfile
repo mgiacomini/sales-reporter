@@ -28,7 +28,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -61,3 +61,7 @@ gem 'bourbon'
 gem 'neat'
 gem 'money-rails', github: 'mgiacomini/money-rails'
 gem 'administrate-field-money'
+gem 'woocommerce_api', '~> 1.3.0'
+gem 'chartkick'
+gem 'groupdate'
+gem 'sidekiq'
