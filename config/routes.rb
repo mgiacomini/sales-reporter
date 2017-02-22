@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  mount Sidekiq::Web => '/sidekiq'
   namespace :admin do
     resources :users
     resources :wordpresses
