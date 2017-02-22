@@ -1,4 +1,4 @@
-require_relative '../services/data_importer'
+require_relative 'update_order_worker'
 require_relative '../services/woocommerce/orders_retriever'
 
 class ImportOrdersWorker
@@ -7,7 +7,7 @@ class ImportOrdersWorker
   def perform(wordpress_id, amount)
     wordpress = Wordpress.find wordpress_id
     orders_retriever = ::Services::Woocommerce::OrdersRetriever.new(wordpress)
-    update_orders orders_retriever.all_orders(amount, 1, 'any')
+    orders_retriever.all_orders(amount, 1, 'any').each {|o| update_order o.merge(wordpress_id: wordpress_id)}
   end
 
   def self.import_all
@@ -18,9 +18,8 @@ class ImportOrdersWorker
   end
 
   private
-  def update_orders(orders)
-    importer = ::Services::DataImporter.new
-    importer.update_orders orders
+  def update_order(order)
+    UpdateOrderWorker.perform_async order
   end
 
 end

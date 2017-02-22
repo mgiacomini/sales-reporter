@@ -28,5 +28,10 @@ module Services
       end
     end
 
+    def update_order(order_json)
+      p "--> Atualizando pedido: #{order_json['number']}"
+      save_order(create_order_params(order_json))
+    end
+
   end
 end
