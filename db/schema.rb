@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222172306) do
+ActiveRecord::Schema.define(version: 20170222172307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,6 @@ ActiveRecord::Schema.define(version: 20170222172306) do
     t.string   "status"
     t.string   "order_key"
     t.integer  "number"
-    t.decimal  "shipping_total",       precision: 5, scale: 2
-    t.decimal  "discount_total",       precision: 5, scale: 2
-    t.decimal  "total",                precision: 5, scale: 2
-    t.decimal  "total_tax",            precision: 5, scale: 2
     t.string   "payment_method"
     t.string   "payment_method_title"
     t.string   "customer_ip_address"
@@ -32,6 +28,10 @@ ActiveRecord::Schema.define(version: 20170222172306) do
     t.datetime "paid_at"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.decimal  "shipping_total",       precision: 9, scale: 2
+    t.decimal  "discount_total",       precision: 9, scale: 2
+    t.decimal  "total",                precision: 9, scale: 2
+    t.decimal  "total_tax",            precision: 9, scale: 2
     t.index ["wordpress_id"], name: "index_orders_on_wordpress_id", using: :btree
   end
 
