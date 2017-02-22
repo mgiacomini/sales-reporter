@@ -11,7 +11,7 @@ class ImportOrdersWorker
   end
 
   def self.import_all
-    max_orders_number = 1000000
+    max_orders_number = 10000
     Wordpress.all.each do |w|
       perform_async(w.id, max_orders_number)
     end
