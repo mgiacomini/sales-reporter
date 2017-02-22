@@ -13,6 +13,7 @@ module Services
           response = woocommerce.get("orders?page=#{page}&per_page=100&status=#{status}").parsed_response
           break if response.none?
           all_orders.concat(response)
+          yield(response) if block_given?
           break if all_orders.count >= amount
           page += 1
         end
