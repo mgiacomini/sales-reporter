@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222172305) do
+ActiveRecord::Schema.define(version: 20170222172306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,16 +36,16 @@ ActiveRecord::Schema.define(version: 20170222172305) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.decimal  "sales"
     t.integer  "orders"
     t.integer  "items"
-    t.decimal  "tax"
-    t.decimal  "shipping"
-    t.decimal  "discount"
     t.integer  "customers"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "wordpress_id"
+    t.decimal  "sales",        precision: 9, scale: 2
+    t.decimal  "tax",          precision: 9, scale: 2
+    t.decimal  "shipping",     precision: 9, scale: 2
+    t.decimal  "discount",     precision: 9, scale: 2
     t.index ["wordpress_id"], name: "index_reports_on_wordpress_id", using: :btree
   end
 
