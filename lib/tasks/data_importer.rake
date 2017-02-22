@@ -7,7 +7,7 @@ namespace :data_importer do
     importer = ::Services::DataImporter.new
     Wordpress.all.each do |wordpress|
       orders_retriever = ::Services::Woocommerce::OrdersRetriever.new(wordpress)
-      importer.update_orders orders_retriever.all_orders(100000, 1, 'any'), wordpress.id
+      importer.update_orders orders_retriever.all_orders(20000, 1, 'any'), wordpress.id
     end
   end
 
@@ -17,7 +17,7 @@ namespace :data_importer do
     Wordpress.all.each do |wordpress|
       p "--> Wordpress: #{wordpress.name}"
       orders_retriever = ::Services::Woocommerce::OrdersRetriever.new(wordpress)
-      importer.update_orders orders_retriever.all_orders(1000, 1, 'any'), wordpress.id
+      importer.update_orders orders_retriever.all_orders(5000, 1, 'any'), wordpress.id
     end
   end
 end
