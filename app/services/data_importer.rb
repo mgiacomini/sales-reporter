@@ -4,35 +4,27 @@ module Services
   class DataImporter
 
     def create_order_params(order_json={})
-      created_at = order_json.delete('date_created')
-      updated_at = order_json.delete('date_modified')
-      paid_at = order_json.delete('date_paid')
-      completed_at = order_json.delete('date_completed')
+      created_at = order_json.delete('date_created').to_date
+      updated_at = order_json.delete('date_modified').to_date
+      paid_at = order_json.delete('date_paid').to_date
+      completed_at = order_json.delete('date_completed').to_date
 
       p = order_json.merge(created_at: created_at, updated_at: updated_at, paid_at: paid_at, completed_at: completed_at)
       p.reject { |k, v| !Order.column_names.include? k }
     end
 
-    ## Update or Create a Order
-    def save_order(params={})
-      order = Order.find_by_number params['number']
-      if order.instance_of? Order
-        order.update_attributes params
-      else
-        Order.create!(params)
-      end
-    end
-
-    def update_orders(orders, wordpress_id)
+    def import_orders(orders, wordpress)
+      orders_chunks = []
       orders.each do |order_json|
-        p "--> Atualizando pedido: #{order_json['number']}"
-        save_order(create_order_params(order_json).merge(wordpress: Wordpress.find(wordpress_id)))
+        orders_chunks << create_order_object(params.merge(wordpress: wordpress))
       end
+      Order.import orders_chunks, on_duplicate_key_update: [:status]
     end
 
-    def update_order(order_json)
-      p "--> Atualizando pedido: #{order_json['number']}"
-      save_order(create_order_params(order_json))
+    private
+
+    def create_order_object(params={})
+      Order.new(params)
     end
 
   end

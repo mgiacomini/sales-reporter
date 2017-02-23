@@ -2,15 +2,15 @@ module Services
   module Woocommerce
     class OrdersRetriever
 
-      def initialize(wordpress)
-        self.woocommerce = wordpress.woocommerce
+      def initialize(woocommerce)
+        @woocommerce = woocommerce
       end
 
       def all_orders(amount = 200, page = 1, status = 'processing')
         all_orders = []
 
         while true
-          response = woocommerce.get("orders?page=#{page}&per_page=100&status=#{status}").parsed_response
+          response = @woocommerce.get("orders?page=#{page}&per_page=100&status=#{status}").parsed_response
           break if response.none?
           all_orders.concat(response)
           yield(response) if block_given?
@@ -24,16 +24,8 @@ module Services
       end
 
       def get_order(order_id)
-        woocommerce.get("orders/#{order_id}").parsed_response
+        @woocommerce.get("orders/#{order_id}").parsed_response
       end
-
-      def get_notes(order)
-        woocommerce.get("orders/#{order["id"]}/notes").parsed_response
-      end
-
-      private
-
-      attr_accessor :woocommerce
 
     end
   end
