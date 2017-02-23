@@ -31,10 +31,11 @@ It renders the `_table` partial to display details about the resources.
   </div>
 </header>
 
-<h2>General sales report</h2>
-<%= line_chart @orders.group_by_day(:wordpress_created_at).sum(:total) %>
+<div style="margin-left: 20px;">
+  <h2>General sales report of lasts 30 days</h2>
+  <%= line_chart @orders.group_by_day(:wordpress_created_at).sum(:total) %>
 
-<% Wordpress.all.each do |wordpress| %>
-  <h2><%= wordpress.name %> sales report</h2>
-  <%= line_chart wordpress.orders.last_30_days.group_by_day(:wordpress_created_at).sum(:total) %>
-<% end %>
+  <%= line_chart Order.last_30_days.group(:wordpress_id).group_by_week(:wordpress_created_at).sum(:total) %>
+
+  <%= line_chart Order.last_30_days.group(:status).group_by_week(:wordpress_created_at).count %>
+</div>
