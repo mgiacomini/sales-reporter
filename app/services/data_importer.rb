@@ -19,7 +19,7 @@ module Services
         params = create_order_params order_json
         orders_chunks << create_order_object(params.merge(wordpress: wordpress))
       end
-      Order.import orders_chunks, on_duplicate_key_update: [:status, :created_at]
+      Order.import orders_chunks, on_duplicate_key_update: [:status, :created_at, :updated_at, :paid_at, :completed_at]
     end
 
     private
