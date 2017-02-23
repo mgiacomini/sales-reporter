@@ -24,6 +24,8 @@ class OrderDashboard < Administrate::BaseDashboard
       customer_user_agent: Field::String,
       completed_at: Field::DateTime,
       created_at: Field::DateTime,
+      wordpress_created_at: Field::DateTime,
+      wordpress_updated_at: Field::DateTime,
       paid_at: Field::DateTime,
       updated_at: Field::DateTime,
   }.freeze
@@ -38,7 +40,7 @@ class OrderDashboard < Administrate::BaseDashboard
       :number,
       :total,
       :status,
-      :created_at
+      :wordpress_created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -57,7 +59,7 @@ class OrderDashboard < Administrate::BaseDashboard
       :customer_ip_address,
       :customer_user_agent,
       :completed_at,
-      :created_at,
+      :wordpress_created_at,
       :paid_at,
       :updated_at,
   ].freeze
