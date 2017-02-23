@@ -32,9 +32,9 @@ It renders the `_table` partial to display details about the resources.
 </header>
 
 <h2>General sales report</h2>
-<%= line_chart @orders.group_by_day(:wordpress_created_at).count %>
+<%= line_chart @orders.group_by_day(:wordpress_created_at).sum(:total) %>
 
 <% Wordpress.all.each do |wordpress| %>
   <h2><%= wordpress.name %> sales report</h2>
-  <%= line_chart wordpress.orders.group_by_day(:wordpress_created_at).sum(:total) %>
+  <%= line_chart wordpress.orders.last_30_days.group_by_day(:wordpress_created_at).sum(:total) %>
 <% end %>
