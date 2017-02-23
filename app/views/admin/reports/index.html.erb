@@ -35,7 +35,15 @@ It renders the `_table` partial to display details about the resources.
   <h2>General sales report of lasts 30 days</h2>
   <%= line_chart @orders.group_by_day(:wordpress_created_at).sum(:total) %>
 
-  <%= line_chart Order.last_30_days.group(:wordpress_id).group_by_week(:wordpress_created_at).sum(:total) %>
+  <h3>Sales by status (number of orders)</h3>
+  <%= pie_chart Order.last_30_days.group(:status).count %>
 
-  <%= line_chart Order.last_30_days.group(:status).group_by_week(:wordpress_created_at).count %>
+  <h3>Sales by status ($$)</h3>
+  <%= pie_chart Order.last_30_days.group(:status).sum(:total) %>
+
+
+  <% Wordpress.all.each do |wordpress| %>
+      <h3><%= wordpress.name %></h3>
+      <%= line_chart wordpress.orders.last_30_days.group_by_day(:wordpress_created_at).sum(:total) %>
+  <% end %>
 </div>
