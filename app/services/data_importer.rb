@@ -4,10 +4,10 @@ module Services
   class DataImporter
 
     def create_order_params(order_json={})
-      created_at = DateTime.parse order_json.delete('date_created').to_date
-      updated_at = DateTime.parse order_json.delete('date_modified').to_date
-      paid_at = DateTime.parse order_json.delete('date_paid').to_date
-      completed_at = DateTime.parse order_json.delete('date_completed').to_date
+      created_at = order_json.delete('date_created').to_datetime
+      updated_at = order_json.delete('date_modified').to_datetime
+      paid_at = order_json.delete('date_paid').to_datetime
+      completed_at = order_json.delete('date_completed').to_datetime
 
       p = order_json.merge(created_at: created_at, updated_at: updated_at, paid_at: paid_at, completed_at: completed_at)
       p.reject { |k, v| !Order.column_names.include? k }
