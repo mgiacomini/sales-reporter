@@ -16,6 +16,7 @@ module Services
     def import_orders(orders, wordpress)
       orders_chunks = []
       orders.each do |order_json|
+        params = create_order_params order_json
         orders_chunks << create_order_object(params.merge(wordpress: wordpress))
       end
       Order.import orders_chunks, on_duplicate_key_update: [:status]
