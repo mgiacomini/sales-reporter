@@ -44,6 +44,6 @@ It renders the `_table` partial to display details about the resources.
 
   <% Wordpress.all.each do |wordpress| %>
       <h3><%= wordpress.name %></h3>
-      <%= line_chart wordpress.orders.last_30_days.group_by_day(:wordpress_created_at).sum(:total) %>
+      <%= line_chart wordpress.orders.last_30_days.converted.group_by_day(:wordpress_created_at).sum(:total) %>
   <% end %>
 </div>
