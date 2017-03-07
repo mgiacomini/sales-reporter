@@ -17,11 +17,11 @@ module Admin
 
 
     helper_method :orders_found?
+
     private
     def set_filter_params
-      p filter_params.inspect
-      @filter_date_begin_term = Date.parse filter_params[:filter_date_begin]
-      @filter_date_end_term = Date.parse filter_params[:filter_date_end]
+      @filter_date_begin_term = filter_params[:filter_date_begin] ? Date.parse(filter_params[:filter_date_begin]) : nil
+      @filter_date_end_term = filter_params[:filter_date_end] ? Date.parse(filter_params[:filter_date_end]) : nil
     end
 
     def orders
