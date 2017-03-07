@@ -1,0 +1,27 @@
+<form class="search" style="padding: 5px;">
+  <div>
+    <input
+    type="text"
+    placeholder="Initial date"
+    name="filter_date_begin"
+    class="datetimepicker"
+    value="<%= filter_date_begin_term %>"
+    />
+  </div>
+  <div style="margin-left: 10px;">
+    <input
+    type="text"
+    placeholder="Final date"
+    name="filter_date_end"
+    class="datetimepicker"
+    value="<%= filter_date_end_term %>"
+    />
+  </div>
+  <div style="margin-left: 10px;">
+    <input
+    type="submit"
+    class="button"
+    value="Filter"
+    />
+  </div>
+</form>
