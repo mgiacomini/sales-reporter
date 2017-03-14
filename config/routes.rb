@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :orders do
       collection { get :update_orders }
     end
-    root to: 'users#index'
+    root to: 'reports#index'
   end
+
+  root to: 'admin/reports#index'
 end
