@@ -12,7 +12,8 @@ module Services
                                'wordpress_created_at' => created_at,
                                'wordpress_updated_at' => updated_at,
                                'paid_at' => paid_at,
-                               'completed_at' => completed_at
+                               'completed_at' => completed_at,
+                               'order_key' => order_json['order_key'].concat(order_json['number'])
                            })
       p.reject { |k, v| !Order.column_names.include? k }
     end
