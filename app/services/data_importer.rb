@@ -3,7 +3,7 @@ module Services
   ## Data importation for WooCommerce platform
   class DataImporter
 
-    def create_order_params(order_json={})
+    def create_order_params(order_json={}, wordpress)
       created_at = order_json['date_created'].to_datetime
       updated_at = order_json['date_modified'].to_datetime
       paid_at = order_json['date_paid'].to_datetime
@@ -13,14 +13,14 @@ module Services
                                'wordpress_updated_at' => updated_at,
                                'paid_at' => paid_at,
                                'completed_at' => completed_at,
-                               'order_key' => order_json['order_key'].concat(order_json['number'])
+                               'order_key' => "#{order_json['order_key']}-#{wordpress.id}-#{order_json['number']}"
                            })
       p.reject { |k, v| !Order.column_names.include? k }
     end
 
     def import_orders(orders, wordpress)
       orders_chunks = orders.map do |order_json|
-        params = create_order_params order_json
+        params = create_order_params order_json, wordpress
         create_order_object(params.merge(wordpress: wordpress))
       end
 
