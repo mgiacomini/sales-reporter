@@ -18,12 +18,21 @@ module Services
     end
 
     def import_orders(orders, wordpress)
-      orders_chunks = []
-      orders.each do |order_json|
+      orders_chunks = orders.map do |order_json|
         params = create_order_params order_json
-        orders_chunks << create_order_object(params.merge(wordpress: wordpress))
+        create_order_object(params.merge(wordpress: wordpress))
       end
-      Order.import orders_chunks, on_duplicate_key_update: [:status, :wordpress_created_at, :wordpress_updated_at, :paid_at, :completed_at]
+
+      Order.import orders_chunks, on_duplicate_key_update: {
+          conflict_target: [:order_key],
+          columns: [
+            :status,
+            :wordpress_created_at,
+            :wordpress_updated_at,
+            :paid_at,
+            :completed_at
+          ]
+      }
     end
 
     private

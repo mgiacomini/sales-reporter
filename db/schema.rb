@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222172308) do
+ActiveRecord::Schema.define(version: 20170314173549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170222172308) do
     t.decimal  "total_tax",            precision: 9, scale: 2
     t.date     "wordpress_created_at"
     t.date     "wordpress_updated_at"
+    t.index ["order_key"], name: "index_orders_on_order_key", unique: true, using: :btree
     t.index ["wordpress_id"], name: "index_orders_on_wordpress_id", using: :btree
   end
 
