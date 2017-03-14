@@ -4,6 +4,6 @@ require_relative '../../app/services/data_importer'
 namespace :truncate_orders do
   desc "Truncate orders table"
   task run: :environment do
-    Order.destroy_all
+    ActiveRecord::Base.connection.execute("TRUNCATE orders RESTART IDENTITY")
   end
 end
