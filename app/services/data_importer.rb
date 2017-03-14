@@ -24,16 +24,17 @@ module Services
         params.merge(wordpress_id: wordpress.id)
       end
 
-      Order.import orders_chunks, on_duplicate_key_update: {
-          conflict_target: [:order_key],
-          columns: [
-            :status,
-            :wordpress_created_at,
-            :wordpress_updated_at,
-            :paid_at,
-            :completed_at
-          ]
-      }
+      Order.import orders_chunks, on_duplicate_key_ignore: true
+        #on_duplicate_key_update: {
+        #    conflict_target: [:order_key],
+        #    columns: [
+        #      :status,
+        #      :wordpress_created_at,
+        #      :wordpress_updated_at,
+        #      :paid_at,
+        #     :completed_at
+        #    ]
+        #}
     end
 
     private
